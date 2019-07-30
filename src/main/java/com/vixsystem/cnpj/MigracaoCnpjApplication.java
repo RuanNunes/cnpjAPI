@@ -21,7 +21,7 @@ public class MigracaoCnpjApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		cnpjService.migration();
+//		cnpjService.migration();
 //		cadastraisPjService.updateMigrados();
 		
 	}

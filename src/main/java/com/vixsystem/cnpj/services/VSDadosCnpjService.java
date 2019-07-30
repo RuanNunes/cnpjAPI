@@ -35,8 +35,8 @@ public class VSDadosCnpjService {
 		List<String> msLog = new ArrayList<>();
 		List<Long> timeLog = new ArrayList<>();
 		
-		Integer limit = 10;
-		int interacoes = 10;
+		Integer limit = 1000;
+		int interacoes = 1;
 		for (int i = 0; i < interacoes; i++) {
 			inicioSelect = System.currentTimeMillis();
 			List<VCDadosCnpjProjection> projection = cnpjRepository.selectMigration(limit);

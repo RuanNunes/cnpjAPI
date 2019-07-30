@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "vs_dados_cnpj")
 public class VSDadosCnpj implements Serializable{
@@ -16,9 +18,12 @@ public class VSDadosCnpj implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String nomeRazaoSocial;
-	private String nomeFantasia;
-	private String estado;
+	@Column(name = "nome_razao_social")
+	private String nome;
+	@Column(name = "nome_fantasia")
+	private String fantasia;
+	@Column(name = "estado")
+	private String uf;
 	private String municipio;
 	private String bairro;
 	private String cep;
@@ -31,9 +36,9 @@ public class VSDadosCnpj implements Serializable{
 	}
 	
 	public VSDadosCnpj(Object[] columns) {
-        this.nomeRazaoSocial = (String)columns[0];
-        this.nomeFantasia = (String) columns[1];
-        this.estado = (String)columns[2];
+        this.nome = (String)columns[0];
+        this.fantasia = (String) columns[1];
+        this.uf = (String)columns[2];
         this.municipio = (String)columns[3];
         this.bairro = (String)columns[4];
         this.cnae = Integer.valueOf((String)columns[5]);
@@ -45,16 +50,17 @@ public class VSDadosCnpj implements Serializable{
 			String bairro,String cep, Integer cnae, String cnpj) {
 		super();
 		this.id = id;
-		this.nomeRazaoSocial = nomeRazaoSocial;
-		this.nomeFantasia = nomeFantasia;
-		this.estado = estado;
+		this.nome = nomeRazaoSocial;
+		this.fantasia = nomeFantasia;
+		this.uf = estado;
 		this.municipio = municipio;
 		this.bairro = bairro;
 		this.cep = cep;
 		this.cnae = cnae;
 		this.cnpj = cnpj;
 	}
-
+	
+	@JsonIgnore
 	public Integer getId() {
 		return id;
 	}
@@ -63,28 +69,28 @@ public class VSDadosCnpj implements Serializable{
 		this.id = id;
 	}
 
-	public String getNomeRazaoSocial() {
-		return nomeRazaoSocial;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setNomeRazaoSocial(String nomeRazaoSocial) {
-		this.nomeRazaoSocial = nomeRazaoSocial;
+	public void setNome(String nomeRazaoSocial) {
+		this.nome = nomeRazaoSocial;
 	}
 
-	public String getNomeFantasia() {
-		return nomeFantasia;
+	public String getFantasia() {
+		return fantasia;
 	}
 
-	public void setNomeFantasia(String nomeFantasia) {
-		this.nomeFantasia = nomeFantasia;
+	public void setFantasia(String nomeFantasia) {
+		this.fantasia = nomeFantasia;
 	}
 
-	public String getEstado() {
-		return estado;
+	public String getUf() {
+		return uf;
 	}
 
-	public void setEstado(String estado) {
-		this.estado = estado;
+	public void setUf(String estado) {
+		this.uf = estado;
 	}
 
 	public String getMunicipio() {
@@ -94,7 +100,8 @@ public class VSDadosCnpj implements Serializable{
 	public void setMunicipio(String municipio) {
 		this.municipio = municipio;
 	}
-
+	
+	@JsonIgnore
 	public String getBairro() {
 		return bairro;
 	}
@@ -102,7 +109,8 @@ public class VSDadosCnpj implements Serializable{
 	public void setBairro(String bairro) {
 		this.bairro = bairro;
 	}
-
+	
+	@JsonIgnore
 	public Integer getCnae() {
 		return cnae;
 	}
@@ -110,13 +118,23 @@ public class VSDadosCnpj implements Serializable{
 	public void setCnae(Integer cnae) {
 		this.cnae = cnae;
 	}
-
+	
+	@JsonIgnore
 	public String getCnpj() {
 		return cnpj;
 	}
 
 	public void setCnpj(String cnpj) {
 		this.cnpj = cnpj;
+	}
+	
+	@JsonIgnore
+	public String getCep() {
+		return cep;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
 	}
 
 	@Override
@@ -143,14 +161,4 @@ public class VSDadosCnpj implements Serializable{
 			return false;
 		return true;
 	}
-
-	public String getCep() {
-		return cep;
-	}
-
-	public void setCep(String cep) {
-		this.cep = cep;
-	}
-	
-	
 }
