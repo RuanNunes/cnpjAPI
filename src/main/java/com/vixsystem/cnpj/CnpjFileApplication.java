@@ -11,7 +11,7 @@ import com.vixsystem.cnpj.services.VSClienteService;
 import com.vixsystem.cnpj.services.VSDadosCnpjService;
 
 @SpringBootApplication
-public class MigracaoCnpjApplication implements CommandLineRunner{
+public class CnpjFileApplication implements CommandLineRunner{
 	@Autowired
 	private VSDadosCnpjService cnpjService;
 	@Autowired
@@ -19,7 +19,7 @@ public class MigracaoCnpjApplication implements CommandLineRunner{
 	@Autowired
 	private VSClienteService clienteService;
 	public static void main(String[] args) {
-		SpringApplication.run(MigracaoCnpjApplication.class, args);
+		SpringApplication.run(CnpjFileApplication.class, args);
 	}
 
 	@Override
@@ -28,5 +28,4 @@ public class MigracaoCnpjApplication implements CommandLineRunner{
 //		cadastraisPjService.updateMigrados();
 		clienteService.insertClientePadrão();
 	}
-
 }
