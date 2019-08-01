@@ -35,7 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	
 	private static final String[] PUBLIC_MATCHER_GET = {
-			"/v1/cnpjFile/**",
+			"/v1/**",
 	};
 	
 	@Override

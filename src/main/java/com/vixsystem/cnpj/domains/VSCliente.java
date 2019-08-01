@@ -6,6 +6,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -23,11 +24,12 @@ public class VSCliente implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	@Column(unique = true)
 	private String email;
 	private String senha;
-	//faz com que sempre que trouxer um cliente vai carregar o perfil junto
+	//faz com que sempre que carregar um cliente vai carregar o perfil junto
 	@ElementCollection(fetch=FetchType.EAGER)
-	@CollectionTable(name = "vc_perfis")
+	@CollectionTable(name = "vs_perfis")
 	private Set<Integer> perfis = new HashSet<>();
 	
 	public VSCliente() {

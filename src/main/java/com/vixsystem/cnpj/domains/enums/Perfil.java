@@ -1,5 +1,7 @@
 package com.vixsystem.cnpj.domains.enums;
-
+/** Enum perfil criado para definir futuramente os tipo de plano que o cliente escolher
+ * @author Ruan Nunes
+ */
 public enum Perfil {
 	//ROLE É EXIGENCIA DO SPRING SECURITY
 	ADMIN(1,"ROLE_ADMIN"),
@@ -25,9 +27,9 @@ public enum Perfil {
 		if(cod == null) {
 			return null;
 		}
-		for (Perfil x : Perfil.values()) {
-			if(cod.equals(x.getCod())) {
-				return x;
+		for (Perfil picanha : Perfil.values()) {
+			if(cod.equals(picanha.getCod())) {
+				return picanha;
 			}
 		}
 		throw new IllegalArgumentException("id invalido: " + cod);
