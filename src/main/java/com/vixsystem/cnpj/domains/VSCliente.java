@@ -1,12 +1,20 @@
 package com.vixsystem.cnpj.domains;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import com.vixsystem.cnpj.domains.enums.Perfil;
 @Entity
 @Table(name = "vs_cliente")
 public class VSCliente implements Serializable{
@@ -15,19 +23,22 @@ public class VSCliente implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String nome;
+	private String email;
 	private String senha;
-	private String token;
+	//faz com que sempre que trouxer um cliente vai carregar o perfil junto
+	@ElementCollection(fetch=FetchType.EAGER)
+	@CollectionTable(name = "vc_perfis")
+	private Set<Integer> perfis = new HashSet<>();
 	
 	public VSCliente() {
-		
+		addPerfil(Perfil.CLIENTE);
 	}
 
-	public VSCliente(String nome, String senha, String token) {
+	public VSCliente(String email, String senha) {
 		super();
-		this.nome = nome;
+		this.email = email;
 		this.senha = senha;
-		this.token = token;
+		addPerfil(Perfil.CLIENTE);
 	}
 
 	public Integer getId() {
@@ -38,12 +49,12 @@ public class VSCliente implements Serializable{
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setEmail(String nome) {
+		this.email = nome;
 	}
 
 	public String getSenha() {
@@ -53,15 +64,15 @@ public class VSCliente implements Serializable{
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-
-	public String getToken() {
-		return token;
+	
+	public Set<Perfil> getPerfis(){
+		return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
 	}
-
-	public void setToken(String token) {
-		this.token = token;
+	
+	public void addPerfil(Perfil perfil) {
+		perfis.add(perfil.getCod());
 	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

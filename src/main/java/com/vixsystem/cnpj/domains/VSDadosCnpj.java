@@ -101,7 +101,7 @@ public class VSDadosCnpj implements Serializable{
 		this.municipio = municipio;
 	}
 	
-	@JsonIgnore
+	
 	public String getBairro() {
 		return bairro;
 	}
@@ -128,7 +128,7 @@ public class VSDadosCnpj implements Serializable{
 		this.cnpj = cnpj;
 	}
 	
-	@JsonIgnore
+	
 	public String getCep() {
 		return cep;
 	}

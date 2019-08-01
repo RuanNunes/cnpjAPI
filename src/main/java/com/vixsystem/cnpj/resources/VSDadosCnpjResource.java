@@ -26,13 +26,13 @@ public class VSDadosCnpjResource {
 		return ResponseEntity.ok().body(service.findCnpj(id));
 	}
 	
-	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> insert( @RequestBody VSClienteDTO objDTO){
-//		VSClienteDTO obj = service.insert(service.fromDTO(objDTO));
-		//retorna url com novo registro inserido
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-				.path("/{id}").buildAndExpand(obj.getId()).toUri();
-		return ResponseEntity.created(uri).build();
-	}
+//	@RequestMapping(value = "/login" , method = RequestMethod.POST)
+//	public ResponseEntity<Void> insert( @RequestBody VSClienteDTO objDTO){
+////		VSClienteDTO obj = service.insert(service.fromDTO(objDTO));
+//		//retorna url com novo registro inserido
+//		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+//				.path("/{id}").buildAndExpand(obj.getId()).toUri();
+//		return ResponseEntity.created(uri).build();
+//	}
 
 }

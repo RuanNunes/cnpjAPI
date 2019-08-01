@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 import com.vixsystem.cnpj.domains.VSCliente;
 @Repository
 public interface VSClienteRepository extends JpaRepository<VSCliente, Integer>{
-	VSCliente findByNomeAndSenha(String nome, String senha);
+	VSCliente findByEmail(String email);
 }
