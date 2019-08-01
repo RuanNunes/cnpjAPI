@@ -14,6 +14,7 @@ import com.vixsystem.cnpj.projections.VCDadosCnpjProjection;
 public interface VSDadosCnpjRepository extends JpaRepository<VSDadosCnpj, Integer>{
 	
 	/**
+	 * @autor Ruan Nunes
 	 * @param limit
 	 * CNAE DE FARMACIA
 	 * 4771-7/01 	Comércio varejista de produtos farmacêuticos, sem manipulação de fórmulas

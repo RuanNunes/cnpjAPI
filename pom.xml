@@ -11,8 +11,8 @@
 	<groupId>com.vixsystem.cnpj</groupId>
 	<artifactId>desenvolvimento</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>demo</name>
-	<description>projeto para migrar dados</description>
+	<name>cnpjfile</name>
+	<description>projeto para migrar dados de cnpj</description>
 
 	<properties>
 		<java.version>12</java.version>
