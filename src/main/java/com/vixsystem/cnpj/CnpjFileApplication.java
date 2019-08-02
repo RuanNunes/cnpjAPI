@@ -9,6 +9,7 @@ import com.vixsystem.cnpj.repositories.VSClienteRepository;
 import com.vixsystem.cnpj.services.CnpjDadosCadastraisPjService;
 import com.vixsystem.cnpj.services.VSClienteService;
 import com.vixsystem.cnpj.services.VSDadosCnpjService;
+import com.vixsystem.cnpj.services.VSEstadoService;
 
 @SpringBootApplication
 public class CnpjFileApplication implements CommandLineRunner{
@@ -18,6 +19,8 @@ public class CnpjFileApplication implements CommandLineRunner{
 	private CnpjDadosCadastraisPjService cadastraisPjService;
 	@Autowired
 	private VSClienteService clienteService;
+	@Autowired
+	private VSEstadoService estadoService;
 	public static void main(String[] args) {
 		SpringApplication.run(CnpjFileApplication.class, args);
 	}
@@ -27,5 +30,6 @@ public class CnpjFileApplication implements CommandLineRunner{
 //		cnpjService.migration();
 //		cadastraisPjService.updateMigrados();
 //		clienteService.insertClientePadrão();
+//		estadoService.insertEstadoPadrao();
 	}
 }

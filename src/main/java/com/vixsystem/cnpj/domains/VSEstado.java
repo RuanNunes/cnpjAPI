@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,7 +21,8 @@ public class VSEstado implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String nome;
+	@Column(unique = true, length = 2, precision = 2)
+	private String uf;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "estado")
@@ -30,10 +32,18 @@ public class VSEstado implements Serializable{
 		
 	}
 
-	public VSEstado(Integer id, String nome) {
+	public VSEstado(Integer id, String uf) {
 		super();
 		this.id = id;
-		this.nome = nome;
+		this.uf = uf;
+	}
+
+	public String getUf() {
+		return uf;
+	}
+
+	public void setUf(String uf) {
+		this.uf = uf;
 	}
 
 	public Integer getId() {
@@ -42,14 +52,6 @@ public class VSEstado implements Serializable{
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
 	}
 
 	public List<VSCidade> getCidades() {

@@ -18,7 +18,7 @@ public class VSClienteService {
 	@Autowired
 	private BCryptPasswordEncoder encoder;
 	
-	public void insertClientePadrão() {
+	public void insertClientePadrao() {
 //		VSCliente cliente = new VSCliente("teste@gmail.com", encoder.encode("123"));
 //		clienteRepository.save(cliente);
 	}

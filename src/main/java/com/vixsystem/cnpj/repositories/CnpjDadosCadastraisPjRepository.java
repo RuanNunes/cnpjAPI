@@ -20,4 +20,8 @@ public interface CnpjDadosCadastraisPjRepository extends JpaRepository<CnpjDados
 			" limit :limit "
 			,nativeQuery  = true)
 	List<CnpjDadosCadastraisPjProjection> updateMigrados(@Param("limit") Integer limit);
+	
+	@Transactional(readOnly = true)
+	@Query(value ="select distinct uf from cnpj_dados_cadastrais_pj where uf notnull", nativeQuery  = true)
+	List<String> selectEstados();
 }
