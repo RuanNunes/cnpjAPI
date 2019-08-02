@@ -17,7 +17,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -60,6 +62,10 @@ public class VSCliente implements Serializable{
 	@ElementCollection
 	@CollectionTable(name = "vs_telefone")
 	private Set<String> telefones = new HashSet<>();
+	
+	@OneToOne()
+	@JoinColumn(name = "plano_id")
+	private VSPlano plano;
 	
 	@Column(unique = true, length = 45, precision = 45)
 	@NotNull
