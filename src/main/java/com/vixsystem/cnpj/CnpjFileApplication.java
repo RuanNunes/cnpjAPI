@@ -24,10 +24,27 @@ public class CnpjFileApplication implements CommandLineRunner{
 	public static void main(String[] args) {
 		SpringApplication.run(CnpjFileApplication.class, args);
 	}
-
+	
+	
+	
 	@Override
 	public void run(String... args) throws Exception {
-//		cnpjService.migration();
+		
+		
+		/**
+		 * Metodo responsavel por fazer migração dos dados da receita para o layout da vixSystem
+		 * @author Ruan Nunes
+		 * @param limit -> responsavel por limitar a quantidade de registros no select da tabela da receita federal
+		 * @param interações -> responsavel por definir quantas vezes o select sera executado
+		 * @param UF -> responsavel por dizer de qual estado sera migrado  
+		 * @param cont -> Responsavel por mostrar ao final da migração quantos registroa ainda falta para ser migrados do estado selecionado
+		 * obs.: parametro como true executa consulta demorada
+		 */
+		Integer limit = 10000;
+		int interacoes = 20;
+		String UF = "ba";
+		boolean cont = false;
+		cnpjService.migration(limit, interacoes, UF, cont);
 //		cadastraisPjService.updateMigrados();
 //		clienteService.insertClientePadrão();
 //		estadoService.insertEstadoPadrao();

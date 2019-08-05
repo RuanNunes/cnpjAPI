@@ -1,5 +1,6 @@
 package com.vixsystem.cnpj.services;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -26,20 +27,31 @@ public class VSDadosCnpjService {
 	private CnpjDadosCadastraisPjRepository cadastraisPjRepository;
 	@Autowired
 	private CnpjDadosCadastraisPjService cadastraisPjService;
+	@Autowired
+	private VSEstadoService estadoService;
 	private long inicioSelect;
 	private long fimSelect;
 	private long divisao;
 	private String n;
-	public void migration (){
+	public void migration (Integer limit, int interacoes, String uf, boolean cont){
 		//Utilizando Framework SpringDataJpa
+		uf = uf.toUpperCase();
 		List<String> msLog = new ArrayList<>();
 		List<Long> timeLog = new ArrayList<>();
-		
-		Integer limit = 1000;
-		int interacoes = 1;
+		boolean isExibirLog = true;
+		Integer contadorDeRegistrosMigrados = 0;
 		for (int i = 0; i < interacoes; i++) {
 			inicioSelect = System.currentTimeMillis();
-			List<VCDadosCnpjProjection> projection = cnpjRepository.selectMigration(limit);
+			List<VCDadosCnpjProjection> projection = cnpjRepository.selectMigration(limit,uf);
+			if(projection.get(0) == null) {
+				System.out.println("TODOS OS REGISTROS DE " + uf.toUpperCase() + " FORAM MIGRADOS");
+				if(i >= 1) {
+					exibeLog(msLog, timeLog, isExibirLog, limit, i, contadorDeRegistrosMigrados);
+				}
+				isExibirLog = false;
+				break;
+			}
+			
 			for (VCDadosCnpjProjection x : projection) {
 				if(x.getMigrado() == null) {
 					//Salva registro em layout novo
@@ -51,21 +63,30 @@ public class VSDadosCnpjService {
 					CnpjDadosCadastraisPj dadosCadastraisPj = cadastraisPjService.find(x.getId());
 					dadosCadastraisPj.setMigrado("S");
 					cadastraisPjRepository.save(dadosCadastraisPj);
+					contadorDeRegistrosMigrados ++;
 				}
 			}
 			fimSelect = System.currentTimeMillis();
 			msLog.add(timeMille(" TEMPO PARA FAZER MIGRAÇÃO DA " + i + " INTERAÇÃO ",0));
 			timeLog.add(segundos());
 		}
-		for (String string : msLog) {
-			System.out.println(string);
+		exibeLog(msLog, timeLog, isExibirLog, limit, interacoes, contadorDeRegistrosMigrados);
+		if(cont)
+			cont(uf);
+	}
+	
+	private void exibeLog(List<String> msLog, List<Long> timeLog, boolean isExibirLog, Integer limit, int interacoes, Integer registrosMigrados) {
+		if(isExibirLog) {
+			for (String string : msLog) {
+				System.out.println(string);
+			}
+			long tempoTotal = 0;
+			for (Long long1 : timeLog) {
+				tempoTotal = tempoTotal + long1;
+			}
+			System.out.println(timeMille(" TEMPO PARA FAZER MIGRAÇÃO DE TODAS INTERAÇÕES ", tempoTotal));
+			System.out.println(" TOTAL DE REGISTROS MIGRADOS " + registrosMigrados);
 		}
-		long tempoTotal = 0;
-		for (Long long1 : timeLog) {
-			tempoTotal = tempoTotal + long1;
-		}
-		System.out.println(timeMille(" TEMPO PARA FAZER MIGRAÇÃO DE TODAS INTERAÇÕES ", tempoTotal));
-		System.out.println(" TOTAL DE REGISTROS MIGRADOS " + (limit * interacoes));
 	}
 	
 	private String timeMille(String variavel, long segundos) {
@@ -93,23 +114,24 @@ public class VSDadosCnpjService {
 	}
 	
 	//Utilizando EntityManager JPA nativo
-//		@PersistenceContext
-//		private EntityManager entityManager;
-//		
-//		private long cont() {
-//			inicioSelect = System.currentTimeMillis();
-//			String queryStr = "select count (id) from cnpj_dados_cadastrais_pj ";
-//			try {
-//				Query query = entityManager.createNativeQuery(queryStr);
-//				long cont = (long) query.getResultList().get(0);
-//				fimSelect = System.currentTimeMillis();
-//				timeMille(" CONTADOR ");
-//				return cont;
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//				throw e;
-//			}
-//		}
+		@PersistenceContext
+		private EntityManager entityManager;
+		
+		private void cont( String uf) {
+			inicioSelect = System.currentTimeMillis();
+			String queryStr = "select count (0) from cnpj_dados_cadastrais_pj where migrado isnull and uf = '" + uf + "'";
+			try {
+				Query query = entityManager.createNativeQuery(queryStr);
+				BigInteger cont = (BigInteger) query.getResultList().get(0);
+				fimSelect = System.currentTimeMillis();
+				System.out.println(timeMille("TEMPO PARA FAZER CONTAGEM DE REGISTROS QUE FALTAM SER MIGRADOS: ", segundos()));
+				System.out.println("FALTAM " + cont  + " REGISTROS DO ESTADO DE " + estadoService.getNomePorUF(uf) + " PARA SER MIGRADOS");
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw e;
+			}
+		}
 		
 //		private List<VSDadosCnpj> select (){
 //			String queryStr = "select " + 

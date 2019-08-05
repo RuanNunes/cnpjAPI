@@ -35,10 +35,11 @@ public interface VSDadosCnpjRepository extends JpaRepository<VSDadosCnpj, Intege
 			"	id, " +
 			"	migrado " +
 			" from cnpj_dados_cadastrais_pj " +
-			" where migrado isnull and cnae_fiscal in ('4771701','4771702','4771703')" + 
+			" where migrado isnull and uf = :uf " +
+//			+ "and cnae_fiscal in ('4771701','4771702','4771703')" + 
 			" limit :limit "
 			,nativeQuery  = true)
-	List<VCDadosCnpjProjection> selectMigration(@Param("limit") Integer limit);
+	List<VCDadosCnpjProjection> selectMigration(@Param("limit") Integer limit, @Param("uf") String uf);
 	
 	@Transactional(readOnly = true)
 	VSDadosCnpj findByCnpj(String cnpj);

@@ -25,7 +25,9 @@ public class VSEstadoService {
 	}
 	
 	
-	private String getNomePorUF(String string) {
+	public String getNomePorUF(String string) {
+		string = string.toUpperCase();
+		
 		if(string.equals("AC"))
 			return "Acre";
 		if(string.equals("AL"))
