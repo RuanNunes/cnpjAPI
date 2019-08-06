@@ -5,7 +5,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.vixsystem.cnpj.repositories.VSClienteRepository;
 import com.vixsystem.cnpj.services.CnpjDadosCadastraisPjService;
 import com.vixsystem.cnpj.services.VSClienteService;
 import com.vixsystem.cnpj.services.VSDadosCnpjService;

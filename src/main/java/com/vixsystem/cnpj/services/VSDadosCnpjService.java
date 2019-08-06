@@ -17,6 +17,7 @@ import com.vixsystem.cnpj.projections.VCDadosCnpjProjection;
 import com.vixsystem.cnpj.repositories.CnpjDadosCadastraisPjRepository;
 import com.vixsystem.cnpj.repositories.VSDadosCnpjRepository;
 import com.vixsystem.cnpj.services.exceptions.ObjectNotFoundException;
+import com.vixsystem.cnpj.services.validation.utils.BR;
 
 @Service
 public class VSDadosCnpjService {
@@ -109,9 +110,13 @@ public class VSDadosCnpjService {
 	
 	
 	public VSDadosCnpj findCnpj(String cnpj) {
+		
+		if(!BR.isValidCNPJ(cnpj))
+			throw new ObjectNotFoundException("Cnpj Invalido.");
+		
 		VSDadosCnpj obj = cnpjRepository.findByCnpj(cnpj);
 		if(obj == null)
-			throw new ObjectNotFoundException("Cnpj Invalido.");
+			throw new ObjectNotFoundException("Cnpj não encontrado, provavelmente foi gerado por uma ferramenta.");
 		
 		return obj;
 	}
