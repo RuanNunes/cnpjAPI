@@ -3,14 +3,12 @@ package com.vixsystem.cnpj.services;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import com.vixsystem.cnpj.domains.CnpjDadosCadastraisPj;
@@ -18,6 +16,7 @@ import com.vixsystem.cnpj.domains.VSDadosCnpj;
 import com.vixsystem.cnpj.projections.VCDadosCnpjProjection;
 import com.vixsystem.cnpj.repositories.CnpjDadosCadastraisPjRepository;
 import com.vixsystem.cnpj.repositories.VSDadosCnpjRepository;
+import com.vixsystem.cnpj.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class VSDadosCnpjService {
@@ -110,7 +109,11 @@ public class VSDadosCnpjService {
 	
 	
 	public VSDadosCnpj findCnpj(String cnpj) {
-		return cnpjRepository.findByCnpj(cnpj);
+		VSDadosCnpj obj = cnpjRepository.findByCnpj(cnpj);
+		if(obj == null)
+			throw new ObjectNotFoundException("Cnpj Invalido.");
+		
+		return obj;
 	}
 	
 	//Utilizando EntityManager JPA nativo
