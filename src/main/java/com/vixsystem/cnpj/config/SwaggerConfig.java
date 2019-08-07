@@ -56,7 +56,7 @@ public class SwaggerConfig {
 				"Esta API tem como objetivo migrar os dados do layout da receita federal para o layout da vixSystem e também fornecer um json com as informações necessarias a partir de um cnpj fornecido.",
 				"Versão 2.0",
 				"https://www.vixsystem.com.br/",
-				new Contact("Ruan Nunes", "", "ruanschwanz@gmail.com"),
+				new Contact("Ruan Nunes", "https://github.com/RuanNunes/", "ruanschwanz@gmail.com"),
 				"Todos Diretiros reservados", 
 				"https://www.vixsystem.com.br/", 
 				Collections.emptyList()

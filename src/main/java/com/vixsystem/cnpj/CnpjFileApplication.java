@@ -38,8 +38,8 @@ public class CnpjFileApplication implements CommandLineRunner{
 		 * --------------------> BA
 		 * 
 		 */
-		Integer limit = 10000;
-		int interacoes = 40;
+		Integer limit = 222073;
+		int interacoes = 1;
 		String UF = "es";
 		boolean cont = false;
 //		cnpjService.migration(limit, interacoes, UF, cont);

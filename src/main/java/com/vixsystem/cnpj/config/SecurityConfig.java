@@ -36,7 +36,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	
 	private static final String[] PUBLIC_MATCHER_GET = {
-			"/v1/**",
+			"/v2/**",
+	};
+	
+	private static final String[] PUBLIC_MATCHER_POST = {
+			"/v2/**",
 	};
 	
 	@Override
@@ -51,6 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.cors().and().csrf().disable();
 		http.authorizeRequests()
 			.antMatchers(HttpMethod.GET, PUBLIC_MATCHER_GET).permitAll()	
+			.antMatchers(HttpMethod.POST, PUBLIC_MATCHER_POST).permitAll()	
 			.anyRequest().authenticated();
 		http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
 		http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService));
