@@ -84,6 +84,9 @@ public class VSCliente implements Serializable{
 	
 	private String token;
 	
+	@OneToMany(mappedBy = "cliente" )
+	private List<VSPagamento> pagamentos = new ArrayList<>();
+	
 	public VSCliente() {
 		addPerfil(Perfil.CLIENTE);
 	}
@@ -211,7 +214,15 @@ public class VSCliente implements Serializable{
 	public void setEnderecos(List<VSEndereco> enderecos) {
 		this.enderecos = enderecos;
 	}
-	
+
+	public List<VSPagamento> getPagamentos() {
+		return pagamentos;
+	}
+
+	public void setPagamentos(List<VSPagamento> pagamentos) {
+		this.pagamentos = pagamentos;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -236,5 +247,4 @@ public class VSCliente implements Serializable{
 			return false;
 		return true;
 	}
-	
 }

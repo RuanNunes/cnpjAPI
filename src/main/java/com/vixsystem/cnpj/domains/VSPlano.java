@@ -1,14 +1,13 @@
 package com.vixsystem.cnpj.domains;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 @Entity
@@ -23,10 +22,13 @@ public class VSPlano implements Serializable {
 	private String nome;
 	
 	@OneToMany(mappedBy = "plano")
-	private List<VSItensPlano> itensPlano;
+	private List<VSItensPlano> itensPlano = new ArrayList<>();
 	
 	@OneToMany(mappedBy = "plano" )
-	private List<VSCliente> cliente;
+	private List<VSCliente> cliente = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "plano" )
+	private List<VSPagamento> pagamentos = new ArrayList<>();
 	
 	public VSPlano() {
 		
@@ -56,6 +58,14 @@ public class VSPlano implements Serializable {
 		this.itensPlano = itensPlano;
 	}
 
+	public List<VSPagamento> getPagamentos() {
+		return pagamentos;
+	}
+
+	public void setPagamentos(List<VSPagamento> pagamentos) {
+		this.pagamentos = pagamentos;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -80,5 +90,4 @@ public class VSPlano implements Serializable {
 			return false;
 		return true;
 	}
-	
 }
