@@ -26,6 +26,6 @@ public class CnpjFileApplication implements CommandLineRunner{
 	public void run(String... args) throws Exception {
 //		cnpjService.migration();
 //		cadastraisPjService.updateMigrados();
-		clienteService.insertClientePadrão();
+//		clienteService.insertClientePadrão();
 	}
 }
